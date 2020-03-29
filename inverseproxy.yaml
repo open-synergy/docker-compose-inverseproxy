@@ -9,6 +9,8 @@ services:
       public:
     volumes:
       - acme:/etc/traefik/acme:rw,Z
+      - ./certs/ssl.crt:/etc/traefik/certs/ssl.crt
+      - ./certs/ssl.key:/etc/traefik/certs/ssl.key
     ports:
       - "80:80"
       - "443:443"
@@ -26,7 +28,7 @@ services:
       - --ACME.Storage=/etc/traefik/acme/acme.json
       - --DefaultEntryPoints=http,https
       - --EntryPoints=Name:http Address::80 Redirect.EntryPoint:https
-      - --EntryPoints=Name:https Address::443 TLS
+      - "--EntryPoints=Name:https Address::443 TLS:/etc/traefik/certs/ssl.crt,/etc/traefik/certs/ssl.key"
       - --LogLevel=INFO
       - --Docker
       - --Docker.EndPoint=http://dockersocket:2375
