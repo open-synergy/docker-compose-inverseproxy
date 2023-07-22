@@ -19,7 +19,7 @@ services:
     tty: true
     command:
       - --ACME.ACMELogging
-      - --ACME.Email=you@example.com
+      - --ACME.Email=odoo@simetri-sinergi.id
       - --ACME.EntryPoint=https
       - --ACME.HTTPChallenge.entryPoint=http
       - --ACME.OnHostRule
@@ -50,9 +50,8 @@ services:
 
 networks:
   shared:
-    internal: true
-    driver_opts:
-      encrypted: 1
+    external: true
+    name: inverseproxy_shared
 
   private:
     internal: true
